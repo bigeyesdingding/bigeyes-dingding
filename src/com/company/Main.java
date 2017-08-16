@@ -36,15 +36,13 @@ public class Main {
             }
         }
         return result;
-
     }
+
+
+
     public static void main(String[] args) {
-	// write your code here
-//        int p = countOne(4);
+	    // write your code here
         int[] q = countArray(15);
         System.out.println(Arrays.toString(q));
     }
 }
-
-
-//testing
