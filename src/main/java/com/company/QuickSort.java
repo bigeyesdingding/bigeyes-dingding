@@ -4,17 +4,72 @@ import java.util.Arrays;
 
 public class QuickSort {
 
+    public static int[] quickSort(int[] array){
+        if(array== null || array.length<2){
+            return array;
+        }
 
-    public static int[]  sort(int[] array){
-
-        int pivot = array[array.length-1];
-
+        sort(array, 0, array.length-1);
         return array;
     }
+
+    public static int choosePivot(int start, int end){
+        return start + (int)(Math.random()*( end - start +1 ));
+    }
+
+    public static void swap(int[] array, int left, int right){
+        int temp = array[left];
+        array[left] = array[right];
+        array[right] = temp;
+    }
+
+    public static void sort(int[] array, int left, int right){
+
+        if(left>=right){
+            return;
+        }
+
+        //1. partition
+        int pivotIndex = partition(array, left, right);
+
+        //2.do recursion
+        sort(array, left, pivotIndex-1);
+        sort(array, pivotIndex+1, right);
+
+    }
+
+    public static int partition(int[] array, int left, int right){
+        //0. pre-processing
+        int pivotIndex = choosePivot(left, right);
+        swap(array, pivotIndex, right);
+        int pivot = array[right];
+
+        int leftPointer = left;
+        int rightPointer = right-1;
+
+        //1.1 partition moving two pointers
+        while(leftPointer<=rightPointer){
+            if(array[leftPointer]>pivot){
+                swap(array, leftPointer, rightPointer--);
+            } else{
+                leftPointer++;
+            }
+        }
+
+        //1.2 swap the pivot to the right place
+        swap(array, ++rightPointer,right);
+
+        return rightPointer;
+    }
+
     public static void main(String[] args){
         System.out.println(Arrays.toString(args));
 
-        int[] array = {10, 80, 30, 90, 40, 50, 70};
+        int[] arrayI = {10, 80, 30, 90, 40, 50, 70};
+        int[] arrayII = {32,5,98,0};
+        int[] arrayIII = {};
+        int[] arrayIV = {32};
+        int[] arrayV = {5,39};
 
         /*
             Please be notified that a good solution contains:
@@ -41,7 +96,7 @@ public class QuickSort {
                 case two: else i++
 
             Step 3: do recursive:
-            base case: array.length == 1
+            base case: left>=right
             recursive rule: recursive all elements left of the pivot; recursive all elements right of the pivot
 
             ?? How to deal with the pivot?
@@ -51,8 +106,23 @@ public class QuickSort {
 
 
        */
+        quickSort(arrayII);
 
-        System.out.println(Arrays.toString(array));
+        System.out.println(Arrays.toString(arrayII));
+
+
+        /*
+
+        Conclusions:
+        1.  Be careful about the rightPointer and leftPointer,
+            start position;
+            representations;
+            movement;
+            end position;
+            return value;
+
+        */
+
 
     }
 }
