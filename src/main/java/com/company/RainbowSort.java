@@ -36,6 +36,17 @@ public class RainbowSort {
                 4.Repeat Step 1 and Step 2 for middle part and increase k by 2.
                 5.Stop until count >= k
 
+            Question: How is the difference between quick sort and rainbow sort?
+
+            QS:the time complexity is O(nlogn)
+            RS: time complexity O(nk)
+            Suppose k --> n, the problem is simplified as an quick sort problem, which has no repeated objects in the original array.
+            Why not use rainbow sort when k is very big?
+               Because the time complexity comes to be O(n^2);
+
+            So when we have a repeated array and k is very small, it's better to use rainbow sort, time can comes to be near O(n)
+
+
             */
         int[] arrayI = {3, 2, 2, 1, 4};
 
