@@ -5,7 +5,7 @@ public class SelectionSort {
 
     }
 
-    public static void main(){
+    public static void main(String[] args){
       /*
 
         Please be notified that a good solution contains:
