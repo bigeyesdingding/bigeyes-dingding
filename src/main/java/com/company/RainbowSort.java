@@ -2,10 +2,48 @@ package com.company;
 import java.util.Arrays;
 public class RainbowSort {
     public static void rainbowSort(int[] array, int k){
+        if(array==null||array.length<2){
+            return;
+        }
+        int count = 0;
+        int start = 0 ;
+        int end = array.length-1;
+
+        while(count<k){
+
+            //find min and max in the unknow arrray
+            int min = Integer.MAX_VALUE;
+            int max = Integer.MIN_VALUE;
+            for(int i = start; i<=end; i++){
+                min = Math.min(min, array[i]);
+                max = Math.max(max, array[i]);
+            }
+
+            //partition
+            int cur = start;
+            int left = start;
+            int right = end;
+            while(cur<=right){
+                if(array[cur]==min){
+                    swap(array, cur++, left++);
+                } else if(array[cur]==max){
+                    swap(array, cur, right--);
+                } else{
+                    cur++;
+                }
+            }
+            count+=2;
+            start =left;
+            end = right;
+        }
+
 
     }
-    public static void partition(){
 
+    public static void swap( int[] array, int l, int r){
+        int temp = array[l];
+        array[l] = array[r];
+        array[r] = temp;
     }
     public static void main(String[] args){
 
@@ -49,9 +87,11 @@ public class RainbowSort {
 
             */
         int[] arrayI = {3, 2, 2, 1, 4};
-
+        rainbowSort(arrayI,4);
         System.out.println(Arrays.toString(arrayI));
+
         int[] arrayII = {1, 2, 3, 3, 3, 1, 2, 2, 3, 2, 2, 1, 3, 1, 1};
+        rainbowSort(arrayII,3);
         System.out.println(Arrays.toString(arrayII));
     }
 }
