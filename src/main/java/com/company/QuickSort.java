@@ -109,6 +109,8 @@ public class QuickSort {
         quickSort(arrayII);
 
         System.out.println(Arrays.toString(arrayII));
+        System.out.println(Long.MAX_VALUE);
+
 
 
         /*
