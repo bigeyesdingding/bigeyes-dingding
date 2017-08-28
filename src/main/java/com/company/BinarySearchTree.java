@@ -24,13 +24,20 @@ public class BinarySearchTree {
     * case 1: totally the same position
     * case 2: just changed the left and right subtrees
     *
+    *Q4: whether a binary tree is binary search tree or not
+    * O9n) time and O(n) space
+    * be careful when using call stack, how to calculate the space complexity.
+    * DO differenciate the binary tree and the balanced binary tree, O(height)!= O(log_n)
     *
     *
+    * Q5: print BST values in a given range
+    * 1. k1<=x<=k2
+    * 2. print all keys in increasing order
     *
     * */
     public static int getHeight(TreeNode root){
         if(root == null ){
-            retrun 0;
+            return 0;
         }
         return 1+Math.max(getHeight(root.left), getHeight(root.right));
     }
@@ -92,7 +99,47 @@ public class BinarySearchTree {
     }
 
 
-    public static
+    public static boolean isBST(TreeNode root){
+
+        return isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+    }
+
+    public static boolean isBST(TreeNode root, int min, int max){
+        if(root == null){
+            return true;
+        }
+        if(root.value<min || root.value>max){
+            return false;
+        }
+
+        return isBST(root.left, min,root.value-1) && isBST(root.right, root.value+1,max);//+1 -1 to move the recursion forward
+
+    }
+
+    public static void rangeInOrderTra(TreeNode root, int lower, int upper){
+
+        if(root == null){
+            return;
+        }
+
+        //determine if left subtree should be traversed, only when root.value>min
+        if(root.value>lower){
+            rangeInOrderTra(root.left, lower, upper);
+        }
+
+        //determine if root should be traversed
+        if(root.value>=lower &&root.value<=upper){
+            System.out.println(root.value);
+        }
+
+        //determine if right subtree should be traversed, only when root.value<max
+        if(root.value<upper){
+            rangeInOrderTra(root.right,lower, upper);
+        }
+    }
+
+
 
     public static void main(String[] args){
         System.out.println("This is the Binary Search Tree operations and problems");
