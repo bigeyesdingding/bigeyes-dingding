@@ -26,7 +26,7 @@ public class HashTable {
         for(Map.Entry<String, Integer> entry: freqMap.entrySet()){
             if(minHeap.size()<k){
                 minHeap.offer(entry);
-            }else if(entry.getValue()>minHeap.peek()){
+            }else if(entry.getValue()>minHeap.peek().getValue()){
                 minHeap.poll();
                 minHeap.offer(entry);
             }
@@ -37,7 +37,7 @@ public class HashTable {
     }
 
     private Map<String, Integer> getFreqMap(String[] combo){
-        Map<String, Integer> freqMap new HashMap<>();
+        Map<String, Integer> freqMap = new HashMap<>();
         for(String s : combo){
             Integer freq = freqMap.get(s);
             if(freq== null){
