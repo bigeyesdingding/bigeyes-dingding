@@ -45,6 +45,11 @@ public class Main {
         int[] q = countArray(15);
         System.out.println(Arrays.toString(q));
 
+        int a =129;
+        float b = 129.01f;
+        double c = 129.01;
+        System.out.println(c==b);
+
 
     }
 }

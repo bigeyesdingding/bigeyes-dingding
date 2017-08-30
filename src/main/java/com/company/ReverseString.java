@@ -2,7 +2,7 @@ package com.company;
 
 public class ReverseString {
     public void swap(char[] array, int l, int r){
-        int temp = array[l];
+        char temp = array[l];
         array[l] = array[r];
         array[r] = temp;
     }

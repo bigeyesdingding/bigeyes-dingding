@@ -138,6 +138,7 @@ public class HashTable {
         }
         return common;
     }
+/*
     public List<Integer> commonII(int[] a, int[] b){
         List<Integer> common = new ArrayList<Integer>();
         HashMap<Integer,Integer> countA = new HashMap<>();
@@ -173,5 +174,6 @@ public class HashTable {
         }
         return common;
     }
+*/
 
 }
