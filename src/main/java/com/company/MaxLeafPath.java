@@ -28,10 +28,10 @@ public class MaxLeafPath {
 
         if(root.left != null && root.right != null){//if root node is full, first update global max, then return max branch
             globalMax = Math.max(globalMax,leftMax+root.value+rightMax);//operations on this level
-            return Math.max(leftMax,rightMax) + root.value //return the max branch to the upper level
+            return Math.max(leftMax,rightMax) + root.value; //return the max branch to the upper level
 
         }else{//if tree node is not full
-            return root.left? leftMax+root.value : rightMax+root.value;
+            return root.left != null? leftMax+root.value : rightMax+root.value;
 
         }
     }
