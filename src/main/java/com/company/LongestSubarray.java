@@ -107,7 +107,7 @@ public class LongestSubarray {
     *
     * */
     public static boolean composedFromDict(Set<String> dict, String word){
-
+        return true;
     }
 
 

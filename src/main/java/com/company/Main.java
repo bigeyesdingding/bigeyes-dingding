@@ -50,6 +50,14 @@ public class Main {
         double c = 129.01;
         System.out.println(c==b);
 
+        /*int test = 0;
+        if(test == 0){
+            throw new EmptyStackException();
+        }*/
+        System.out.println(System.getProperty("user.dir"));
+
+
+
 
     }
 }
