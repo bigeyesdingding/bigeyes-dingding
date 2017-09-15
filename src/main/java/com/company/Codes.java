@@ -1,3 +1,12 @@
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,13 +55,26 @@ class Codes {
 
     public static  List<List<Integer>> combineII(int n, int k) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
+        return result;
 
+
+    }
+    public static void test() throws IOException{
+        String content = new String(Files.readAllBytes(Paths.get("textI.txt")));
+        System.out.print(content);
 
     }
 
 
-    public static void main(String[] args){
-        combine(1,0);
+    public static void main(String[] args) throws IOException{
+        //combine(1,0);
+        Path o1 = Paths.get("/src/test/others/shipping_rate.json");
+        if(Files.exists(o1)) {
+            System.out.println(o1.toString());
+        }
+        //ObjectMapper mapper = new ObjectMapper();
+        //JsonNode inputJson = mapper.readTree(new File(o1+"/testII.json"));
+
     }
 
 }
