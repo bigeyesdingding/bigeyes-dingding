@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jdk.nashorn.internal.parser.JSONParser;
 
 import java.io.File;
 import java.io.FileReader;
@@ -72,9 +73,15 @@ class Codes {
         if(Files.exists(o1)) {
             System.out.println(o1.toString());
         }
+        float val = 2.64532543245f;
+        float p = Math.round(val*100f)/100f;
+        System.out.println(p);
+
+        float vl = 27.81f;
+        System.out.println(52.19f+vl);
+
+
         //ObjectMapper mapper = new ObjectMapper();
         //JsonNode inputJson = mapper.readTree(new File(o1+"/testII.json"));
-
     }
-
 }
