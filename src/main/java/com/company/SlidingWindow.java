@@ -56,7 +56,7 @@ public class SlidingWindow {
 
         //assumption: s, l are not null, s is not empty
 
-        List<Integer> result = new ArrayList<Integer>();
+        List<Integer> result = new ArrayList<>();
         if(l.length() == 0){
             return result;
         }
@@ -119,12 +119,48 @@ public class SlidingWindow {
         return map;
     }
 
+    public static int longestFlip(int[] array, int k){
+        //it''s actually a sliding window problem
+        //means the longest subarrray that contains at most k 0s
+        //assume array is not null and array.length >0
+
+        if(k>=array.length){
+            return array.length;
+        }
+
+        int start = 0;
+        int zeros= 0;
+        int globallongest = 0;
+
+        for(int i = 0;i<array.length;i++){
+            if(array[i]==0 && zeros < k){
+                zeros++;
+                globallongest = Math.max(globallongest, i-start+1);
+
+            } else if(array[i]==0 && zeros >= k){
+                while(array[start]!=0){
+                    start++;
+                }
+                start++;
+
+            } else {
+                globallongest = Math.max(globallongest, i-start+1);
+
+            }
+        }
+        return globallongest;
+
+
+    }
+
 
     public static void main(String[] args){
 
-        System.out.println("The sets of sliding window problems");
+        /*System.out.println("The sets of sliding window problems");
         System.out.println(longestSubstringWithoutDup("The sets of sliding window problems"));
-        System.out.println(allAnagrams("in", "Thesetsofslidingwindowproblems" ));
+        System.out.println(allAnagrams("in", "Thesetsofslidingwindowproblems" ));*/
+        int[] array = {0,1,1,1,0,0,0,0,1,0,0,1,0,1,1,0,1,1,1,0,0,1};
+        System.out.println(longestFlip(array,4));
 
     }
 }
