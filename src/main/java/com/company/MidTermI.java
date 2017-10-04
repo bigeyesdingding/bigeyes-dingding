@@ -103,8 +103,7 @@ public class MidTermI {
 
     }
 
-    public static List<String> permute(String input){
-
+    public static void permute(String input){
 
     }
     public static String removeSpace(String input){
@@ -120,18 +119,95 @@ public class MidTermI {
                 array[slow++] = array[i];
             }
 
-            if(slow > 0 && array[slow-1] == ' '){
-                return new String(array, 0, slow-1);
-            }
-            return new String(array, 0, slow);
+
         }
+        if(slow > 0 && array[slow-1] == ' '){
+            return new String(array, 0, slow-1);
+        }
+        return new String(array, 0, slow);
 
 
     }
 
+    public static int kthSmallestSum(int[] A, int[] B, int k){
+        /*
+        * 1.initial state a[0] + b[0]
+        * 2.expansion/generation rule:
+        *   expand ij -> genarate i+1, j
+        *                genarate i, j+1
+        * 3.termination condition
+        * when the k-th pair is poppes outof the min-heap, we can avoid maintain a nxn matrix explicitly
+        * In fast, we only need a space for a heap, rather than a nXn matrix
+        * Time = o(klog(k))
+        *
+        *
+        * */
+        // a max heap contains 1st smallest to k-th smallest number
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(k,
+                new Comparator<Integer>(){
+            @Override
+                    public int compare(Integer i1, Integer i2){
+                if(i1.equals(i2)){
+                    return 0;
+                }
+                return i1>i2?-1:1;
+            }
+                });
+        for(int i = 0; i<A.length;i++){
+            for(int j = 0; j<B.length; j++){
+                int sum = A[i]+ B[j];
+                //fill the maxHeap when less than k
+                //replace the top of the heap when needed
+                if(maxHeap.size()<k){
+                    maxHeap.offer(sum);
 
+                } else if(sum<maxHeap.peek()){
+                    maxHeap.poll();
+                    maxHeap.offer(sum);
+                }
+            }
+
+        }
+        return maxHeap.poll();
+    }
+
+    public static int kthSmallestSumII(int[] A, int[] B, int k){
+        /*using BFS@, time is o(klogk)
+        * */
+        PriorityQueue<Cell> maxHeap = new PriorityQueue<>(2,
+                new Comparator<Cell>(){
+                    @Override
+                    public int compare(Cell c1, Cell c2){
+                        int sum1 = Cell.A[c1.aIdx] + Cell.B[c1.bIdx];
+                        int sum2 = Cell.A[c2.aIdx] + Cell.B[c2.bIdx];
+                        if(sum1 == sum2){
+                            return 0;
+                        }
+                        return sum1<sum2?-1:1;
+                    }
+                });
+        maxHeap.offer(new Cell(0,0)); //initial state
+        boolean[][] visited = new boolean[A.length][B.length];
+        visited[0][0] = true;
+        for(int i = 0; i<k-1; i++){
+            Cell temp = maxHeap.poll();
+            if(temp.aIdx+1<A.length && !visited[temp.aIdx+1][temp.bIdx]){
+                visited[temp.aIdx+1][temp.bIdx] = true;
+                maxHeap.offer(new Cell(temp.aIdx+1,temp.bIdx));
+
+            }
+            if(temp.bIdx+1<B.length && !visited[temp.aIdx][temp.bIdx+1]){
+                visited[temp.aIdx][temp.bIdx+1] = true;
+                maxHeap.offer(new Cell(temp.aIdx,temp.bIdx+1));
+
+            }
+        }
+        Cell result = maxHeap.poll();
+        return A[result.aIdx]+B[result.bIdx];
+
+    }
 
     public static void main(String[] args){
-
+        System.out.println(removeSpace("  I am   a        student.   "));
     }
 }
