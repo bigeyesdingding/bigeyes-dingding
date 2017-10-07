@@ -190,4 +190,80 @@ public class DynamicProgramming {
         return result;
     }
 
+
+    public int longest(int[] array){
+        //assume: array is not null
+        int result = 0;
+        int cur = 0;
+        for(int i = 0; i<array.length; i++){
+            if(array[i] == 1){
+                if(i == 0 || array[i-1] == 0){
+                    cur = 1;
+                } else {
+                    cur++;
+                }
+            }
+            result = Math.max(result, cur);
+        }
+        return result;
+    }
+    public int largestCross(int[][] matrix){
+        //assume: matrix is not null and has size of N*M
+        //where n >=0 and m>= 0
+        int n = matrix.length;
+        if(n == 0){
+            return 0;
+        }
+        int m = matrix[0].length;
+        if(m == 0){
+            return 0;
+            //left-up records the longest possible length for left and up arms ending at each cells in the matrix
+            //int[][] leftUp = leftUp(matrix, n, m);
+            //int[][] rightDown = rightDown(matrix, n, m);
+            //return merge(leftUp, rightDown, n, m);
+
+        }
+        return 0;
+    }
+
+    private int merge(int[][] leftUp, int[][] rightDown, int n, int m){
+        int result = 0;
+        for(int i = 0; i<n;i--){
+            for(int j = 0; j<m;j++){
+                leftUp[i][j] = Math.min(leftUp[i][j], rightDown[i][j]);
+                result = Math.max(result, leftUp[i][j]);
+            }
+        }
+        return result;
+    }
+
+    public int largestSquare(int[][] matrix){
+        //assume: matrix is not null size of m*n where m n > 0
+        //the elements in the matrix are either 0 or 1
+        if(matrix.length == 0 || matrix[0].length == 0){
+            return 0;
+        }
+        int result = 0;
+        int m = matrix.length;
+        int n = matrix[0].length;
+        //the longest left arm length endiung at each position in the matrix
+        int[][] left = new int[m+1][n+1];
+        int[][] up= new int[m+1][n+1];
+        for(int i = 0; i<m; i++){
+            for(int j = 0; j<n; j++){
+                if(matrix[i][j] == 1){
+                    left[i+1][j+1] = left[i+1][j] + 1;
+                    up[i+1][j+1] = up[i][j+1] + 1;
+                }
+                for(int maxLength = Math.min(left[i+1][j+1],up[i+1][j+1]);maxLength >=1; maxLength--){
+                    if(left[i+2-maxLength][j+1] >= maxLength && up[i+1][i+2-maxLength] >= maxLength) {
+                        result = Math.max(result,maxLength);
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
 }
