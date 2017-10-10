@@ -49,6 +49,7 @@ public class TreeRecursion {
             node[0] = root;
             diff[0] = Math.abs(left-right);
         }
+        return 1;
     }
     public static void main(String[] args){
         TreeNode root = new TreeNode(3);
