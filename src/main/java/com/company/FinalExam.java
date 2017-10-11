@@ -2,6 +2,18 @@ package com.company;
 
 import java.util.*;
 
+
+class TreeNodeInfo {
+    public int parent;
+    public int level;
+
+    TreeNodeInfo(int parent, int level){
+        this.parent = parent;
+        this.level = level;
+    }
+
+
+}
 public class FinalExam {
     /*
     * Q1:Given a string, we can insert at most one empty space between each pair of adjacent letters.
@@ -45,6 +57,36 @@ public class FinalExam {
     *
     * */
 
+    public static boolean isCousinII(TreeNode root, int a, int b){
+        if(root == null || root.left == null || root.right == null){
+            return false;
+        }
+        TreeNodeInfo A = check(root, 0, a);
+        TreeNodeInfo B = check(root, 0, b);
+
+
+        return A.parent != B.parent && A.level == B.level;
+
+    }
+
+    private static TreeNodeInfo check( TreeNode root, int level, int a){
+        if(root == null){
+            return null;
+        }
+
+        if((root.left != null && root.left.value == a) || (root.right != null && root.right.value == a)) {
+            return new TreeNodeInfo(root.value, level+1);
+        }
+
+
+        TreeNodeInfo left = check(root.left, level+1, a);
+        if(left != null){
+            return left;
+        }
+        TreeNodeInfo right = check(root.right, level+1, a);
+        return right;
+
+    }
     public static boolean isChained(String[] input){
         //assume: the input array length is great than 1
         if(input == null){
@@ -207,14 +249,16 @@ public class FinalExam {
         right.right = new TreeNode(2);
 
         System.out.println(isCousin(root, 3,5));
+//
+//        System.out.println(minCut(29));
+//
+//        String[] inputI = {"aaa", "bbb", "baa", "aab"};
+//        String[] inputII = {"abc", "df"};
+//        String[] inputIII = {"a", "b"};
+//        System.out.println(isChained(inputI));
+//        System.out.println(isChained(inputIII));
 
-        System.out.println(minCut(29));
-
-        String[] inputI = {"aaa", "bbb", "baa", "aab"};
-        String[] inputII = {"abc", "df"};
-        String[] inputIII = {"a", "b"};
-        System.out.println(isChained(inputI));
-        System.out.println(isChained(inputIII));
+        System.out.println(isCousinII(root, 7,8));
 
     }
 }
