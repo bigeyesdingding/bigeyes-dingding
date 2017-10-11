@@ -1,6 +1,8 @@
 package com.company;
 
-import java.util.Arrays;
+import java.util.*;
+
+import static jdk.nashorn.internal.objects.ArrayBufferView.length;
 
 public class TwoPointers {
 
@@ -37,6 +39,105 @@ public class TwoPointers {
     *
     *
     * */
+
+    public static int[]  specialSort(int[] a1, int[] a2){
+        Integer[] refArray = toIntegerArray(a1);
+        Arrays.sort(refArray, new MyComparator(a2));
+        toIntArray(refArray, a1);
+        return a1;
+    }
+
+    static class MyComparator implements Comparator<Integer> {
+        private Map<Integer, Integer> map;
+        public MyComparator(int[] array){
+            map = new HashMap<>();
+            for(int i = 0; i<array.length;i++){
+                map.put(array[i], i);
+            }
+        }
+        @Override
+        public int compare(Integer i1, Integer i2){
+            Integer index1 = map.get(i1);
+            Integer index2 = map.get(i2);
+            if(index1 != null && index2 != null){
+                return index1.compareTo(index2);
+            } else if(index1 == null && index2 == null){
+                return i1.compareTo(i2);
+            }
+
+            return index2 != null ? -1:1;
+        }
+
+    }
+
+    private static Integer[] toIntegerArray(int[] array){
+        Integer[] ressult = new Integer[array.length];
+        for(int i = 0; i<array.length;i++){
+            ressult[i] = array[i];
+        }
+    }
+
+    private static int[] toIntArray(Integer[] array, int[] result){
+        for(int i =0; i<array.length;i++){
+            result[i] = array[i];
+        }
+    }
+
+    public static List<Integer> printZigZag(TreeNode root){
+        List<Integer> result = new LinkedList<>();
+        if(root == null){
+            return result;
+        }
+
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.offerFirst(root);
+        result.add(root.value);
+        boolean reverse = true;
+
+        while(!deque.isEmpty()){
+            int size = deque.size();
+
+            for(int i = 0; i<size; i++){
+                if(!reverse){
+                    TreeNode node = deque.pollFirst();
+                    result.add(node.value);
+                    deque.offerLast(node.left);
+                    deque.offerLast(node.right);
+                } else {
+                    TreeNode node = deque.pollLast();
+                    result.add(node.value);
+                    deque.offerFirst(node.right);
+                    deque.offerFirst(node.left);
+                }
+            }
+            reverse = !reverse;
+
+        }
+        return result;
+
+    }
+
+    public static void rotate(int[][] matrix){
+        //assumption: matrix is not null and has size of N*N
+        int n = matrix.length;
+        if(n<=1){
+            return;
+        }
+
+        int round = n/2;
+        for(int level = 0; level<round; level++){
+            int left = level;
+            int right = n-2-level;
+            for(int i = left; i<=right; i++){
+                int tmp = matrix[left][i];
+                matrix[left][i] = matrix[n-1-i][left];
+                matrix[n-1-i][left] = matrix[right][n-1-i];
+                matrix[right][n-1-i] = matrix[i][right];
+                matrix[i][right] = tmp;
+
+            }
+        }
+    }
 
 
     public static int[] moveZero(int[] input){
@@ -163,9 +264,71 @@ public class TwoPointers {
         System.out.println("The max value is: "+ max);
         System.out.println("The min value is: " + min);
     }
+    static class TreeNodeP {
+        public int key;
+        public TreeNodeP left;
+        public TreeNodeP right;
+        public TreeNodeP parent;
+        public TreeNodeP(int key, TreeNodeP parent) {
+            this.key = key;
+            this.parent = parent;
+        }
+    }
 
-    public static void findII(int[] input){
-        
+    public static TreeNodeP lowestCommonAncesterI(TreeNodeP one, TreeNodeP two){
+        int l1 = length(one);
+        int l2 = length(two);
+
+        if(l1 != l2){
+            return mergeNode(one, two,l2-l1);
+        }else {
+            return mergeNode(two, one, l1-l2);
+        }
+    }
+    private static int length(TreeNodeP node){
+        int length = 0;
+        while(node != null){
+            length += 1;
+            node = node.parent;
+        }
+
+        return length;
+    }
+
+    private static TreeNodeP mergeNode(TreeNodeP shorter, TreeNodeP longer, int diff) {
+        while(diff>0){
+            longer= longer.parent;
+        }
+
+        while(shorter!=longer){
+            shorter = shorter.parent;
+            longer = longer.parent;
+        }
+        return longer;
+    }
+
+
+    public TreeNode lcaKNodes(TreeNode root, List<TreeNode> nodes){
+        Set<TreeNode> set = new HashSet<>(nodes);
+        return helper(root, set);
+    }
+
+    private TreeNode helper(TreeNode root, Set<TreeNode> set) {
+        if(root == null){
+            return null;
+        }
+        if(set.contains(root)){
+            return root;
+        }
+
+
+        TreeNode left = helper(root.left, set);
+        TreeNode right = helper(root.right, set);
+        if(left != null && right != null){
+            return root;
+        }
+
+        return left != null? left: right;
     }
 
     public static void main(String[] args){
