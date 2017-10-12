@@ -163,7 +163,28 @@ public class EnhancePracticeII {
     //                1     4   6    11
     //
 
+    public static TreeNode insert(TreeNode root, int value){
+        if(root == null){
+            return null;
+        }
 
+        if(value>root.value){
+            if(root.right != null){
+                return insert(root.right,value);
+            } else {
+                root.right = new TreeNode(value);
+
+            }
+
+        } else if(value < root.value){
+            if(root.left != null){
+                return insert(root.left, value);
+            } else {
+                root.right = new TreeNode(value);
+            }
+        }
+        return root;
+    }
 
     //Q4:
     //    Data Structure
@@ -173,8 +194,20 @@ public class EnhancePracticeII {
     //    Assumptions
     //
     //    There are no duplicate keys in the binary search tree
+    public static TreeNode find(TreeNode root, int value){
+        if(root == null){
+            return null;
+        }
 
 
+        if(value == root.value){
+            return root;
+        }else if(value>root.value){
+            return find(root.right,value);
+        } else{
+            return find(root.left, value);
+        }
+    }
 
     //Q5:
     //    Data Structure
@@ -187,7 +220,43 @@ public class EnhancePracticeII {
     //
     //    There are no duplicate keys in the binary search tree
 
+    public static TreeNode delete(TreeNode root, int key){
+        if(root == null){
+            return null;
+        }
 
+        if(key == root.value){
+            if(root.left == null){
+                return root.right;
+            } else if(root.right == null){
+                return root.left;
+            } else if(root.right.left == null){
+                root.right.left = root.left;
+            } else{
+                TreeNode newRoot = deleteSmallest(root.right);
+                newRoot.left = root.left;
+                newRoot.right = root.right;
+                return newRoot;
+            }
+        }
+
+        if(key <root.value){
+            root.left = delete(root.left, key);
+        }else if(key > root.value){
+            root.right = delete(root.right, key);
+        }
+        return root;
+    }
+
+
+    private static TreeNode deleteSmallest(TreeNode root){
+        while(root.left.left!=null){
+            root = root.left;
+        }
+        TreeNode smallest = root.left;
+        root.left = root.left.right;
+        return smallest;
+    }
 
     //Q6:
     //    Data Structure
@@ -310,7 +379,9 @@ public class EnhancePracticeII {
 
     //Q10:
     //    Merge Stones
-    //    We have a list of piles of stones, each pile of stones has a certain weight, represented by an array of integers. In each move, we can merge two adjacent piles into one larger pile, the cost is the sum of the weights of the two piles. We merge the piles of stones until we have only one pile left. Determine the minimum total cost.
+    //    We have a list of piles of stones, each pile of stones has a certain weight, represented by an array of integers.
+    //    In each move, we can merge two adjacent piles into one larger pile, the cost is the sum of the weights of the two piles.
+    //    We merge the piles of stones until we have only one pile left. Determine the minimum total cost.
     //
     //            Assumptions
     //
