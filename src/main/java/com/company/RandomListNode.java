@@ -5,5 +5,6 @@ public class RandomListNode {
        public RandomListNode next;
        public RandomListNode random;
        public RandomListNode(int value) {
-         this.value = value;
+           this.value = value;
+       }
 }

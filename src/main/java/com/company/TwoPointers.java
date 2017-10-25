@@ -75,12 +75,14 @@ public class TwoPointers {
         for(int i = 0; i<array.length;i++){
             ressult[i] = array[i];
         }
+        return ressult;
     }
 
     private static int[] toIntArray(Integer[] array, int[] result){
         for(int i =0; i<array.length;i++){
             result[i] = array[i];
         }
+        return result;
     }
 
     public static List<Integer> printZigZag(TreeNode root){

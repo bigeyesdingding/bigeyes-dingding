@@ -304,7 +304,33 @@ public class EnhancePracticeII {
     //            4
 
 
+    public static TreeNode closest(TreeNode root, int value){
+        if(root == null){
+            return null;
+        }
+        TreeNode result = new TreeNode();
+        int diff = Integer.MAX_VALUE;
+        while(root != null){
+            int curDiff = Math.abs(root.value-value);
 
+            if(curDiff == 0){
+                return root;
+            }
+
+            if(curDiff < diff){
+                result = root;
+                diff = curDiff;
+            }
+
+            if(value>root.value){
+                root = root.right;
+            } else{
+                root = root.left;
+            }
+        }
+        return result;
+
+    }
     //Q7:
     //    Data Structure
     //    Largest Number Smaller In Binary Search Tree
@@ -353,7 +379,23 @@ public class EnhancePracticeII {
     //            4
 
 
-
+    public static TreeNode largestSmall(TreeNode root, int value){
+        if(root == null){
+            return null;
+        }
+        TreeNode result = new TreeNode();
+        while(root!= null){
+            if(value < root.value ){
+                root =  root.left;
+            } else if(value == root.value) {
+                return root;
+            } else {
+                result = root;
+                root = root.right;
+            }
+        }
+        return result;
+    }
 
     //Q8:
     //    Data Structure
