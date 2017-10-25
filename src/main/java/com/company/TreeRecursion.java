@@ -18,8 +18,7 @@ public class TreeRecursion {
     //how to store how many nodes in each node's left-subtree
     public static  int leftSubTree(TreeNode root){
 
-
-
+        return 1;
     }
     public static void main(String[] args){
 
