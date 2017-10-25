@@ -1,10 +1,10 @@
 package com.company;
 
 public class TreeNode {
-
     public int value;       // value stored in this node
     public TreeNode left;  // link to next node in the list
     public TreeNode right;  // link to next node in the list
+    public TreeNode key;
 
     // post: constructs a node with data 0 and null link
     public TreeNode() {
