@@ -153,6 +153,36 @@ public class SlidingWindow {
 
     }
 
+    public static List<Integer> largestInWindow(int[] array, int k){
+        if(array == null || k>array.length){
+            return null;
+        }
+        //use a deque to store the index of elements in descending order
+        Deque<Integer> deque = new LinkedList<>();
+        List<Integer> result = new ArrayList<>();
+
+        for(int i = 0; i<array.length;i++){
+            //if the tail of the deque is smaller than array[i], poll
+            while(!deque.isEmpty() && array[deque.peekLast()] <= array[i]){
+                deque.pollLast();
+            }
+
+            //if the head odf the deque is out of the current window
+            if(!deque.isEmpty() && deque.peekFirst() <= i-k){
+                deque.pollFirst();
+            }
+
+            //add the current array[i]
+            deque.offerLast(i);
+
+            //update max
+            if(i>=k-1){
+                result.add(array[deque.peekFirst()]);
+            }
+        }
+        return result;
+    }
+
 
     public static void main(String[] args){
 

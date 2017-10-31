@@ -53,4 +53,39 @@ public class KthSmallestInSortedMatrix {
             this.value = value;
         }
     }
+
+
+
+    public static int kthSmallestInTwo(int[] a, int[] b, int k){
+        if(a.length+b.length<k){
+            return Integer.MIN_VALUE;
+        }
+
+        return find(a, 0, b, 0, k);
+
+    }
+
+    private static int find(int[] a, int as, int[] b, int bs, int k){
+        if(as>=a.length){
+            return b[bs+k-1];
+        }
+        if(bs>=b.length){
+            return a[as+k-1];
+        }
+        if(k == 1){
+            return Math.min(a[as], b[bs]);
+        }
+
+        int amid = as+k/2-1;
+        int bmid = bs+k/2-1;
+        int aval = amid>=a.length? Integer.MAX_VALUE: a[amid];
+        int bval = bmid>=b.length? Integer.MAX_VALUE: b[bmid];
+        if(aval==bval){
+            return aval;
+        }else if(aval<bval){
+            return find(a, amid+1,b, bs, k-k/2 );
+        }else{
+            return find(a, as, b, bmid+1, k-k/2);
+        }
+    }
 }
