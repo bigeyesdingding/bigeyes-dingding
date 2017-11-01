@@ -9,8 +9,8 @@ public class FIrstNonRepeatingChar {
     class Node{
         public Node prev;
         public Node next;
-        public char c;
-        Node(char c){
+        public Character c;
+        Node(Character c){
             this.c = c;
         }
     }
@@ -20,15 +20,18 @@ public class FIrstNonRepeatingChar {
     public Map<Character, Node> map = new HashMap<>();
     public Set<Character> set = new HashSet<>();
     FIrstNonRepeatingChar(){
-        tail = null;
+        tail = new Node(null);
         tail.next = tail.prev = tail;
         head = tail;
         set = new HashSet<Character>();
         map = new HashMap<Character, Node>();
     }
 
-    public char firstNonReap(){
-        return tail.c;
+    public Character firstNonReap(){
+        if(head == tail){
+            return null;
+        }
+        return head.next.c;
     }
 
     public void load(char c){
@@ -38,38 +41,30 @@ public class FIrstNonRepeatingChar {
 
         if(map.containsKey(c)){
             Node node = map.get(c);
-            map.remove(node);
-            set.add(c);
+            remove(node);
+
         }else{
-            Node node = append(c);
-            map.put(c, node);
+            Node node = new Node(c);
+            append(node);
         }
     }
 
-    private Node append(char c){
-        Node node = new Node(c);
-        if(head == null){
-            head = null;
-            tail = null;
-        }
+    private void append(Node node){
+        map.put(node.c, node);
         tail.next = node;
         node.prev = tail;
-        tail = node;
-        return node;
+        node.next = head;
+        tail = tail.next;
     }
     private Node remove(Node node){
-        if(node.prev != null){
-            node.prev.next = node.next;
-        }
-        if(node.next != null){
-            node.next.prev = node.prev;
-        }
-        if(node == head){
-            head = head.next;
-        }
+        node.next.prev = node.prev;
+        node.prev.next = node.next;
         if(node == tail){
-            tail = tail.prev;
+            tail = node.prev;
         }
+        node.next = node.prev = null;
+        set.add(node.c);
+        map.remove(node.c);
         return node;
     }
 }

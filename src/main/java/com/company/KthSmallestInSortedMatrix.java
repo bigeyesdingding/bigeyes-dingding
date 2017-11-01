@@ -88,4 +88,39 @@ public class KthSmallestInSortedMatrix {
             return find(a, as, b, bmid+1, k-k/2);
         }
     }
+
+
+    //find median of two sorted arrays
+    public double median(int[] a, int[] b) {
+        // write your solution here
+        int totalLen = a.length+b.length;
+        int first = (totalLen+1)/2;
+        int second = (totalLen+2)/2;
+        return (helper(a, 0, b, 0, first) + helper(a, 0, b,0, second))/2;
+
+
+    }
+    private double helper(int[] a, int al, int[] b, int bl, int k){
+        if(al>=a.length){
+            return b[bl+k-1];
+        }
+        if(bl>=b.length){
+            return a[al+k-1];
+        }
+        if(k==1){
+            return Math.min(a[al],b[bl]);
+        }
+
+        int amid = al+k/2-1;
+        int bmid = bl+k/2-1;
+        int aval= amid>=a.length?Integer.MAX_VALUE: a[amid];
+        int bval= bmid>=b.length?Integer.MAX_VALUE: b[bmid];
+
+        if(aval<bval){
+            return helper(a, amid+1, b, bl,k- k/2);
+        }else{
+            return helper(a, al, b, bmid+1, k - k/2);
+        }
+    }
+
 }
