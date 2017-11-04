@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class Codes {
@@ -67,18 +68,67 @@ class Codes {
     }
 
 
-    public static void main(String[] args) throws IOException{
-        //combine(1,0);
-        Path o1 = Paths.get("/src/test/others/shipping_rate.json");
-        if(Files.exists(o1)) {
-            System.out.println(o1.toString());
-        }
-        float val = 2.64532543245f;
-        float p = Math.round(val*100f)/100f;
-        System.out.println(p);
 
-        float vl = 27.81f;
-        System.out.println(52.19f+vl);
+
+
+    public static void nextPerm(int[] nums){
+        if(nums.length<2){
+            return;
+        }
+        if(nums.length==2){
+            swap(nums, 0, 1);
+            return;
+        }
+
+        //find the longest all descending sub array
+        int flag = -1;
+        for(int i = nums.length-2; i>=0; i--){
+            if(nums[i]<nums[i+1]){
+                flag = i;
+                break;
+            }
+        }
+        if(flag == -1){
+            sort(nums, 0, nums.length-1);
+            return;
+        }
+
+        //find the right bound to swap with flag
+        int right = nums.length-1;
+        for(int i = nums.length-1; i>flag; i--){
+            if(nums[i]>nums[flag]){
+                right = i;
+                break;
+            }
+        }
+
+        //swap flag and right, then sort nums array, from flag+1 index to the end
+        swap(nums, flag, right);
+        int i = flag+1;
+        int j = nums.length-1;
+        sort(nums, flag+1, nums.length-1);
+    }
+
+    private static void sort(int[] nums, int i, int j){
+        while(i<j){
+            swap(nums, i, j);
+            i++;
+            j--;
+        }
+    }
+
+    private static void swap(int[] nums, int left, int right){
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
+
+    }
+
+
+    public static void main(String[] args) throws IOException{
+        int[] nums = {0};
+        nextPerm(nums);
+        System.out.println(Arrays.toString(nums));
 
 
         //ObjectMapper mapper = new ObjectMapper();
