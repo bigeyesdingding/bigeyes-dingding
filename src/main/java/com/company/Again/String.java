@@ -278,3 +278,63 @@ class LongestSubstringKDistinctChars{
         return max;
     }
 }
+
+public class MinWindowSubSequence{
+    public String minWindowSequence(String S, String T){
+
+        //1. How to design the induction rule? Why we require s[i] == t[j]
+        //2. How to reduce the dimensions? Means how to pass the info of k
+        //
+        //dp[i][j] = k represents from k to i of s, from 0 to j of t, the start point of the substring
+        //dp[i][j] = -1 if therre is no substring
+        if(S == null || S.length() == 0 || S.length() < T.length()){
+            return "";
+        }
+
+        char[] s = S.toCharArray();
+        char[] t = T.toCharArray();
+        int sl = s.length;
+        int tl = t.length;
+        int[][] dp = new int[sl][tl];
+
+        //base case, j == 0
+        for(int i = 0; i<sl; i++){
+            dp[i][0] = -1;
+            if(s[i] == t[0]){
+                dp[i][0] = i;
+            }
+        }
+
+        //induction rules
+        for(int j = 1; j<tl; j++){
+            int k = -1;
+            for(int i = 0; i<sl;i++){
+                dp[i][j] = -1;
+                if(k != -1 && s[i] == t[j]){
+                    dp[i][j] = k;
+                }
+                if(dp[i][j-1] != -1){
+                    k = dp[i][j-1];
+                }
+            }
+        }
+
+        //loop the last level and return the global
+        int minLen = Integer.MAX_VALUE, start = -1;
+        for(int i = 0; i<sl; i++){
+            if(dp[i][tl-1]!= -1){
+                if(i-dp[i][tl-1]+1<minLen){
+                    minLen = i-dp[i][tl-1]+1;
+                    start = dp[i][tl-1];
+                }else if(i-dp[i][tl-1]+1<minLen){
+                    start = Math.min(start, dp[i][tl-1]);
+                }
+            }
+        }
+        List<Integer> l = new ArrayList<>(1);
+        return minLen == Integer.MAX_VALUE? "": S.substring(start, start+minLen);
+    }
+
+}
+
+
