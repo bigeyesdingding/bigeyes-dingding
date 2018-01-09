@@ -1,6 +1,7 @@
 package com.company.Again;
 import java.lang.String;
 import java.util.*;
+import java.lang.*;
 
 class ZigZag {
     public String convert(String str, int n) {
@@ -210,7 +211,7 @@ class MinimumWindowSubstring{
 
 }
 
-class MaxSlidingWindow{
+/*class MaxSlidingWindow{
     public int[] maxSlidingWindow(int[] nums, int k) {
         if(nums == null || nums.length == 0 || k <= 0){
             return new int[0];
@@ -218,7 +219,7 @@ class MaxSlidingWindow{
         int len = nums.length;
         int[] result = new int[len - k +1];
         int index = 0;
-        Deque<Integer> deque = new LinkedList<>(); //to store the index of all max elements
+        Deque<Integer> deque = new LinkedList<Integer>(); //to store the index of all max elements
 
         for(int i = 0; i<len; i++){
             //remove elements out of the k window
@@ -239,8 +240,8 @@ class MaxSlidingWindow{
         }
         return result;
     }
-}
-class LongestSubstringKDistinctChars{
+}*/
+/*class LongestSubstringKDistinctChars{
     public int solution(String s, int k){
         if(s == null || s.length() == 0 || s.length()<=k){
             return s == null ? 0: s.length();
@@ -277,9 +278,9 @@ class LongestSubstringKDistinctChars{
         max = Math.max(max, fast-slow);
         return max;
     }
-}
+}*/
 
-public class MinWindowSubSequence{
+/*class MinWindowSubSequence{
     public String minWindowSequence(String S, String T){
 
         //1. How to design the induction rule? Why we require s[i] == t[j]
@@ -335,6 +336,6 @@ public class MinWindowSubSequence{
         return minLen == Integer.MAX_VALUE? "": S.substring(start, start+minLen);
     }
 
-}
+}*/
 
 
