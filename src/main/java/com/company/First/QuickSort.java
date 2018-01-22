@@ -1,6 +1,7 @@
 package com.company.First;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class QuickSort {
 
@@ -40,8 +41,8 @@ public class QuickSort {
 
     public static int partition(int[] array, int left, int right){
         //0. pre-processing
-        int pivotIndex = choosePivot(left, right);
-        swap(array, pivotIndex, right);
+        //int pivotIndex = choosePivot(left, right);
+        //swap(array, pivotIndex, right);
         int pivot = array[right];
 
         int leftPointer = left;
@@ -62,11 +63,49 @@ public class QuickSort {
         return rightPointer;
     }
 
+
+    public void quickSort(int[] input, int s, int e){
+
+        if(s>=e){
+            return;
+        }
+        int index = partitionII(input, s, e);
+
+        quickSort(input, s, index-1 );
+        quickSort(input, index+1, e);
+    }
+
+    private int partitionII(int[] input, int s, int e){
+
+        int pivot = input[e];
+        //System.out.println(pivot);
+
+        int l = s, r = e;
+        while(l<r){
+            if(input[l]>pivot){
+                swapII(input, l,--r);
+            }else{
+                l++;
+            }
+        }
+
+        swapII(input,r, e);
+        System.out.println(r);
+        return r;
+
+    }
+    private void swapII(int[] input, int i, int j){
+        int temp = input[i];
+        input[i] = input[j];
+        input[j] = temp;
+    }
+
+
     public static void main(String[] args){
         System.out.println(Arrays.toString(args));
 
         int[] arrayI = {10, 80, 30, 90, 40, 50, 70};
-        int[] arrayII = {32,5,98,0};
+        int[] arrayII = {0,10, 15, 11,40};
         int[] arrayIII = {};
         int[] arrayIV = {32};
         int[] arrayV = {5,39};
@@ -106,10 +145,12 @@ public class QuickSort {
 
 
        */
-        quickSort(arrayII);
+        //quickSort(arrayII);
+        QuickSort test = new QuickSort();
+        test.quickSort(arrayII, 0, 4);
 
         System.out.println(Arrays.toString(arrayII));
-        System.out.println(Long.MAX_VALUE);
+        //System.out.println(Long.MAX_VALUE);
 
 
 
@@ -124,6 +165,16 @@ public class QuickSort {
             return value;
 
         */
+
+        Scanner scan = new Scanner(System.in);
+        int i = scan.nextInt();
+
+        // Write your code here.
+
+        System.out.println("String: " + s);
+        System.out.println("Double: " + d);
+        System.out.println("Int: " + i);
+    }
 
 
     }
