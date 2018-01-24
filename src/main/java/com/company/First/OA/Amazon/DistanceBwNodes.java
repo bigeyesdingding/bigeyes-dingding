@@ -1,4 +1,4 @@
-package com.company.First.Amazon;
+package com.company.First.OA.Amazon;
 
 public class DistanceBwNodes {
 
