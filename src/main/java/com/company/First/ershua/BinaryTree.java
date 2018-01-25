@@ -2,12 +2,40 @@ package com.company.First.ershua;
 
 import com.company.First.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class BinaryTree {
+    //check a treee is complete
+    public boolean isCompleted(TreeNode root) {
+        // Write your solution here.
+        if(root == null){
+            return true;
+        }
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        boolean flag = false;
+
+        while(!q.isEmpty()){
+            TreeNode cur = q.poll();
+
+            if(cur.left == null){
+                flag = true;
+            }else if(flag){
+                return false;
+            }else{
+                q.offer(root.left);
+            }
+            if(cur.right == null){
+                flag = true;
+            }else if(flag){
+                return false;
+            }else{
+                q.offer(root.right);
+            }
+
+        }
+        return true;
+    }
 
     //pre order travesal, in-order, post-order
     public List<Integer> post(TreeNode root){
