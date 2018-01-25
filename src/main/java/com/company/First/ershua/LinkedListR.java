@@ -1,7 +1,61 @@
 package com.company.First.ershua;
 
 import com.company.First.ListNode;
+public class LinkedListR{
 
+    //linkedlist merge sort
+    public ListNode mergeSort(ListNode head){
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        ListNode fast = head, slow = head;
+        while(fast != null && fast.next != null && fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode one = head;
+        ListNode two = slow.next;
+        slow.next = null;
+        return merge(one, two);
+    }
+
+    private ListNode merge(ListNode one, ListNode two){
+        ListNode dummy = new ListNode(0);
+        ListNode prev = dummy;
+
+        while(one!= null && two != null){
+            if(one.value>two.value){
+                prev.next = two;
+                two = two.next;
+            }else{
+                prev.next = one;
+                one = one.next;
+
+            }
+            prev = prev.next;
+        }
+
+        if(one!= null){
+            prev.next = one;
+        }
+        if(two!= null){
+            prev.next = two;
+        }
+        return dummy.next;
+    }
+
+
+    static public void main(String[] args){
+
+        LinkedListR test = new LinkedListR();
+
+
+    }
+
+
+}
 class HasCycle {
     //check if a linkedList has cycle
     public static boolean has(ListNode head){

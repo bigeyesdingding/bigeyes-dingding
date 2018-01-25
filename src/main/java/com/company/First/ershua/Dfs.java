@@ -101,6 +101,7 @@ public class Dfs {
         }
 
         permute(set.toCharArray(), res, 0);
+        return res;
     }
     private void permute(char[] array, List<String> res, int index){
         if(index>=array.length){
