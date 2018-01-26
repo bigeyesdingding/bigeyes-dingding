@@ -1,8 +1,11 @@
 package com.company.First.ershua;
 
 import com.company.First.ListNode;
-public class LinkedListR{
 
+import java.util.PriorityQueue;
+
+public class LinkedListR{
+    PriorityQueue<Integer> s = new PriorityQueue<>();
     //linkedlist merge sort
     public ListNode mergeSort(ListNode head){
         if(head == null || head.next == null){

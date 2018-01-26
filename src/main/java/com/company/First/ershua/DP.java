@@ -17,15 +17,17 @@ public class DP {
     }
 
     //return the number of ways to change coins
-    public int change(int amount, int[] coins) {
-        int[] ways = new int[amount+1];
-        for(int i = 1; i<=amount; i++){
-            for(int j = 0; j<coins.length; j++){
-                if(i-coins[j]>=0){
-                    ways[i] += coins[i-coins[j]];
-                }
+    static public int change(int amount, int[] coins) {
+        int[][] ways = new int[coins.length][amount+1];
+        //ways[0] = 1;
+        for(int i = 0; i<coins.length; i++){
+            for(int j = 1; j<=amount; j++){
+
             }
         }
-        return ways[amount];
+    }
+    public static void  main(String[] args){
+        int[] t = {1, 2,5};
+        System.out.println(change(5, t));
     }
 }

@@ -120,4 +120,8 @@ public class Dfs {
         array[i] = array[j];
         array[j] = c;
     }
+
+    public static void main(String[] args){
+
+    }
 }
