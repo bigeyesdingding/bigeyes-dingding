@@ -5,6 +5,29 @@ import com.company.First.TreeNode;
 import java.util.*;
 
 public class BinaryTree {
+
+    //binary tree vertival order traversal
+    public List<List<Integer>> travel(TreeNode root){
+
+        List<List<Integer>> res = new ArrayList<>();
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        travel(root, 0,  map, res);
+        return res;
+    }
+    public void travel(TreeNode root, int value, Map<Integer, List<Integer>> map, List<List<Integer>> res){
+        if(root == null){
+            return;
+        }
+
+        if(!map.containsKey(value)){
+            map.put(value, new ArrayList<Integer>());
+        }
+        map.get(value).add(value);
+        travel(root.left, value-1, map, res);
+        travel(root.right, value+1, map, res);
+    }
+
+
     //check a treee is complete
     public boolean isCompleted(TreeNode root) {
         // Write your solution here.

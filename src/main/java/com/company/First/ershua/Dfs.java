@@ -4,6 +4,34 @@ import java.util.*;
 
 public class Dfs {
 
+    //frog jump
+    public boolean canCross(int[] stones) {
+
+        if(stones.length<2){
+            return true;
+        }
+        if(stones[1]-stones[0] != 1){
+            return false;
+        }
+
+        return helper(stones, 1,1);
+    }
+    private boolean helper(int[] stones, int i, int steps){
+
+        boolean pass = false;
+        if(i==stones.length-1){
+            return true;
+        }
+        for(int j = i+1; j<stones.length; j++){
+            if(stones[i]+steps-1>=stones[j] && stones[i]+steps+1<=stones[j] ){
+                pass = pass||helper(stones, j, stones[j]-stones[i]);
+            }
+        }
+        return pass;
+    }
+
+
+
     //coin combination
     public List<List<Integer>> combinations(int target, int[] coins) {
         // Write your solution here.
