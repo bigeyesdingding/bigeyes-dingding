@@ -61,6 +61,10 @@ public class YiKaoDaiLian {
         double[] v1 = new double[]{2.0,3.0};
         String[][] q1 = new String[][]{{"a", "c"}, {"b", "a"}, {"a", "e"}, {"a", "a"}, {"x", "x"}};
         System.out.println(Arrays.toString(calcEquation(e1,v1,q1)));
+
+
+        String[] list1 = new String[]{"hot","dot","dog","lot","log","cog"};
+        System.out.println(ladderLength("hit", "cog", Arrays.asList(list1)));
     }
 
     public static double[] calcEquation(String[][] e, double[] values, String[][] q) {
@@ -252,12 +256,80 @@ public class YiKaoDaiLian {
         }
         group.put(bb, aa);
         return true;
-
-
-        
     }
 
 
+    //word ladder
+    public static int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Set<String> set = new HashSet<>();
+        for(String word: wordList){
+            set.add(word);
+        }
+        //q
+        Queue<String> q = new LinkedList<>();
+        q.add(beginWord);
+        set.remove(beginWord);
+        int level = 1;
+        while(!q.isEmpty()){
+            int size = q.size();
 
+            for(int i = 0; i<size; i++){
+                String cur = q.poll();
+                char[] arr = null;
+                for(int j = 0; j<cur.length(); j++){
+                    for(char c = 'a'; c<='z'; c++){
+                        arr = cur.toCharArray();
+                        arr[j] = c;
+                        String next = new String(arr);
+                        if(set.contains(next) && next.equals(endWord)){
+                            return level+1;
+                        }
+                        if(!next.equals(cur) && set.contains(next)){
+                            set.remove(next);
+                            q.offer(next);
+                        }
+                    }
+                }
+            }
+            level++;
+        }
+        return -1;
+
+    }
+
+    public int minMutation(String start, String end, String[] bank) {
+        Set<String> set = new HashSet<>();
+        for(int i = 0; i<bank.length; i++){
+            set.add(bank[i]);
+        }
+        //char[] list = new char[]{'A', };
+        Queue<String> q = new LinkedList<>();
+        q.offer(start);
+        set.remove(start);
+        int level = 1;
+        while(!q.isEmpty()){
+            int size = q.size();
+            for(int i = 0; i<size; i++){
+                String cur = q.poll();
+                char[] arr = null;
+                for(int j = 0; j<cur.length(); j++){
+                    for(char c = 'a'; c<='z'; c++){
+                        arr = cur.toCharArray();
+                        arr[j] = c;
+                        String next = new String(arr);
+                        if(set.contains(next) && next.equals(end)){
+                            return level+1;
+                        }
+                        if(set.contains(next) && !next.equals(cur)){
+                            set.remove(next);
+                            q.offer(next);
+                        }
+                    }
+                }
+            }
+            level++;
+        }
+        return 0;
+    }
 
 }
