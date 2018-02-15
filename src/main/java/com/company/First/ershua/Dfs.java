@@ -4,6 +4,36 @@ import java.util.*;
 
 public class Dfs {
 
+    public String parseTernary(String expression) {
+
+    }
+
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(res, new ArrayList<Integer>(), k, n, n, 1 );
+        return res;
+    }
+
+    private void dfs(List<List<Integer>> res, List<Integer> cur, int k, int n, int target, int index){
+
+        if(cur.size() == k){
+            if(target == 0){
+                res.add(new ArrayList<>(cur));
+            }
+            return;
+        }
+
+        for(int i = index; i<=n; i++){
+            if(target>=i){
+               cur.add(i);
+               dfs(res, cur, k, n, target-i, i+1);
+               cur.remove(cur.size()-1);
+            }
+        }
+
+    }
+
+
     //frog jump
     public boolean canCross(int[] stones) {
 
